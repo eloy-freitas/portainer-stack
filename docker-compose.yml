@@ -7,7 +7,7 @@ services:
   portainer:
     image: portainer/portainer-ce:latest
     container_name: portainer
-    restart: unless-stopped
+    restart: always
     ports:
       - "9000:9000" # Portainer Web UI
     volumes:
@@ -19,3 +19,5 @@ services:
 
 volumes:
   portainer_data:
+    external: true
+    name: portainer_data
