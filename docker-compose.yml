@@ -1,0 +1,21 @@
+networks:
+  # Shared network for both tools to communicate if needed
+  docker-mgmt:
+    driver: bridge
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    ports:
+      - "9000:9000" # Portainer Web UI
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Read-only access for safety
+      - portainer_data:/data
+    networks:
+      - docker-mgmt
+    command: --http-enabled
+
+volumes:
+  portainer_data:
